@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<include file="Public:css" />
+	
+</head>
+<body>
+	<div class="row wrapper border-bottom white-bg page-heading">
+	    <div class="col-lg-10">
+	        <h2>缓存清理</h2>
+	    </div>
+	    <div class="col-lg-2">
+	    </div>
+	</div>
+	<div style="height:50px;">
+		
+	</div>
+	<center>
+		<a class="btn btn-primary dim btn-large-dim" href="javascript:void(0);" onclick="del()"><i class="fa fa-money"></i></a>
+	</center>
+	<include file="Public:js" />
+	<script type="text/javascript">
+		
+			function del()
+			{
+				$.ajax({
+	                type: "POST",
+	                url:"__URL__/deldata",	            
+	                success: function(data) {
+	                	if(data==1)
+	                	{
+	                		alert('清除成功');
+	                	}else{
+	                		alert('已清理过了');
+	                	}
+	                }
+	            });
+			}
+		
+	</script>
+</body>
+</html>
