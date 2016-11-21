@@ -24,6 +24,37 @@ class TypeController extends Controller {
          $this->assign('list',$arr);
     	 $this->display();
     }
+    public function delete()
+    {
+        /**
+         * 删除分类
+         */  
+
+        $id = $_POST['typeid'];
+        $type = M('type');
+        $isset = $type->where("pid=$id")->field("pid")->find();
+        $result=array();
+        if($isset)
+        { 
+            $result['information']='该分类下有子类不能删除';
+            $result['state']=1;          
+        }
+        else
+        {
+            $res = $type->delete($id);
+            if($res)
+            {
+                $result['information']='删除成功';
+                $result['state']=0;                
+            }else
+            {      
+                $result['information']='删除失败';
+                $result['state']=1;                     
+            }   
+        }         
+        echo json_encode($result);
+
+    }
     public function doadd(){
         if($_POST['pid']>0){
             $date['pid']=$_POST['pid'];

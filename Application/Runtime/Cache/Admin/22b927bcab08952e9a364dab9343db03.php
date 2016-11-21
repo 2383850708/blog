@@ -8,6 +8,8 @@
 <link href="/thinkphp3/Public/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 <link href="/thinkphp3/Public/css/animate.css" rel="stylesheet">
 <link href="/thinkphp3/Public/css/style.css?v=4.1.0" rel="stylesheet">
+<link href="/thinkphp3/Public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -93,7 +95,7 @@
                 })
                 $("input[rel='input_name']").change( function() {
                     var title=$('.yys').text();
-                    alert(title);
+                   
                    /*$.ajax({
                     url:'/thinkphp3/admin.php/Type/ajax_load',
                     date:'',

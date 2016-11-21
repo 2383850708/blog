@@ -20,6 +20,8 @@
 <link href="/thinkphp3/Public/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 <link href="/thinkphp3/Public/css/animate.css" rel="stylesheet">
 <link href="/thinkphp3/Public/css/style.css?v=4.1.0" rel="stylesheet">
+<link href="/thinkphp3/Public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -703,6 +705,11 @@
 
     <!-- 第三方插件 -->
     <script src="/thinkphp3/Public/js/plugins/pace/pace.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/thinkphp3/Public/js/content.js?v=1.0.0"></script>
+
+    <!-- Sweet alert -->
+    <script src="/thinkphp3/Public/js/plugins/sweetalert/sweetalert.min.js"></script>
 </body>
 
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>fdf</title>
+	<title>查看分类</title>
 	<include file="Public:css" />
 </head>
 <body>
@@ -53,7 +53,8 @@
 	                        <td>{$vo.title}{$vo.name}</td>
 	                        <td>
 	                           <a href="/lichengmi/index.php?m=admin&amp;c=category&amp;a=edit&amp;id=1"><button type="button" class="btn btn-w-m btn-info">修改</button></a>
-	                            <a href="/lichengmi/index.php?m=admin&amp;c=category&amp;a=delete&amp;id=1" onclick="return shifou();"><button type="button" class="btn btn-w-m btn-danger">删除</button></a>
+	                           <!--  <a href="__URL__/Type/delete/id={$vo.id}" onclick="return shifou();"><button type="button" class="btn btn-w-m btn-danger">删除</button></a> -->
+                               <button onclick="del(this,'{$vo.id}');" type="button" class="btn btn-w-m btn-danger">删除</button>
 	                        </td>
 	                    </tr>
 	                </foreach>
@@ -64,6 +65,50 @@
                 </div>
             </div>
             </div>
-            
+            <script src="__PUBLIC__/js/jquery-3.0.0.min.js"></script>
+            <script type="text/javascript">
+                function del(obj,id)
+                {   
+                    var object = obj;
+                    swal({
+                        title: "您确定要删除这条信息吗",
+                        text: "删除后将无法恢复，请谨慎操作！",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "是的，我要删除！",
+                        cancelButtonText: "让我再考虑一下…",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if(isConfirm){
+                             $.ajax({
+                                url:"__URL__/delete",
+                                type:"POST",
+                                dataType: "json",
+                                data:{typeid:id},
+                                success:function(results){
+                                   if(results.state==0)
+                                   {
+                                    object.closest('.gradeU').remove();
+                                    swal(results.information, "您已经永久删除了这条信息。", "success");  
+                                   }
+                                   else
+                                   {
+                                    swal(results.information, "", "error"); 
+                                   }                                     
+                                   
+                                }
+                            }) 
+                        }else{
+                            swal("已取消", "您取消了删除操作！", "error");
+                        }
+      
+                    });
+
+                }
+            </script>
+          <include file="Public:js" />  
 </body>
 </html>

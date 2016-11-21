@@ -1,12 +1,14 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 <head>
-	<title>fdf</title>
+	<title>查看分类</title>
 	<link rel="shortcut icon" href="favicon.ico">
 <link href="/thinkphp3/Public/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
 <link href="/thinkphp3/Public/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
 <link href="/thinkphp3/Public/css/animate.css" rel="stylesheet">
 <link href="/thinkphp3/Public/css/style.css?v=4.1.0" rel="stylesheet">
+<link href="/thinkphp3/Public/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -56,7 +58,8 @@
 	                        <td><?php echo ($vo["title"]); echo ($vo["name"]); ?></td>
 	                        <td>
 	                           <a href="/lichengmi/index.php?m=admin&amp;c=category&amp;a=edit&amp;id=1"><button type="button" class="btn btn-w-m btn-info">修改</button></a>
-	                            <a href="/lichengmi/index.php?m=admin&amp;c=category&amp;a=delete&amp;id=1" onclick="return shifou();"><button type="button" class="btn btn-w-m btn-danger">删除</button></a>
+	                           <!--  <a href="/thinkphp3/admin.php/Type/Type/delete/id=<?php echo ($vo["id"]); ?>" onclick="return shifou();"><button type="button" class="btn btn-w-m btn-danger">删除</button></a> -->
+                               <button onclick="del(this,'<?php echo ($vo["id"]); ?>');" type="button" class="btn btn-w-m btn-danger">删除</button>
 	                        </td>
 	                    </tr><?php endforeach; endif; ?>
                     </tbody>
@@ -66,6 +69,66 @@
                 </div>
             </div>
             </div>
-            
+            <script src="/thinkphp3/Public/js/jquery-3.0.0.min.js"></script>
+            <script type="text/javascript">
+                function del(obj,id)
+                {   
+                    var object = obj;
+                    swal({
+                        title: "您确定要删除这条信息吗",
+                        text: "删除后将无法恢复，请谨慎操作！",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "是的，我要删除！",
+                        cancelButtonText: "让我再考虑一下…",
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    },
+                    function (isConfirm) {
+                        if(isConfirm){
+                             $.ajax({
+                                url:"/thinkphp3/admin.php/Type/delete",
+                                type:"POST",
+                                dataType: "json",
+                                data:{typeid:id},
+                                success:function(results){
+                                   if(results.state==0)
+                                   {
+                                    object.closest('.gradeU').remove();
+                                    swal(results.information, "您已经永久删除了这条信息。", "success");  
+                                   }
+                                   else
+                                   {
+                                    swal(results.information, "", "error"); 
+                                   }                                     
+                                   
+                                }
+                            }) 
+                        }else{
+                            swal("已取消", "您取消了删除操作！", "error");
+                        }
+      
+                    });
+
+                }
+            </script>
+              <script src="/thinkphp3/Public/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/thinkphp3/Public/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/thinkphp3/Public/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/thinkphp3/Public/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/thinkphp3/Public/js/plugins/layer/layer.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="/thinkphp3/Public/js/hplus.js?v=4.1.0"></script>
+    <script type="text/javascript" src="/thinkphp3/Public/js/contabs.js"></script>
+
+    <!-- 第三方插件 -->
+    <script src="/thinkphp3/Public/js/plugins/pace/pace.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/thinkphp3/Public/js/content.js?v=1.0.0"></script>
+
+    <!-- Sweet alert -->
+    <script src="/thinkphp3/Public/js/plugins/sweetalert/sweetalert.min.js"></script>  
 </body>
 </html>
